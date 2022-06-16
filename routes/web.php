@@ -39,3 +39,6 @@ Route::get('Login', function () {
 Route::get('verification', function () {
     return view('employe/verification');
 })->middleware(['auth'])->name('verification');
+
+Route::get('employe',[EmployeController::class,'show']);
+Route::get('/fetch-employee',[EmployeController::class,'fetchemployee']);

@@ -12,21 +12,22 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link href="{{ url('dashboard') }}">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('employe')" :active="request()->routeIs('employe')">
-                        {{ __("Gestion d'Employés") }}
+                    <x-nav-link href="{{ url('employe') }}">
+                        {{ __("Employe ") }}
                     </x-nav-link>
                 </div>
 
+
                  <!-- Navigation Links -->
                  <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('pointage')" :active="request()->routeIs('pointage')">
+                    <x-nav-link href="{{ url('pointage') }}">
                         {{ __("Pointage ") }}
                     </x-nav-link>
                 </div>
