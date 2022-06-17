@@ -71,8 +71,7 @@
 						<h2>Gestion <b>d'Employés</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajouter un Employé</span></a>
-						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Supprimer</span></a>						
+						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajouter un Employé</span></a>					
 					</div>
                 </div>
             </div>
@@ -184,7 +183,6 @@
            </form>
         </div>
      </div>
-  </div>
 	<!-- Add Modal HTML -->
     <div id="addEmployeeModal" class="modal fade">
         <div class="modal-dialog">
@@ -263,7 +261,7 @@
       </div>
       <div class="modal-footer">
       <input type="button" class="btn btn-default" data-dismiss="modal" value="Annuler">
-      <input type="submit" href="" class="btn btn-info" id="Sauvegarder" name="Sauvegarder" value="Save">
+      <input type="submit" href="" class="btn btn-info" id="Sauvegarder" name="Sauvegarder" value="Sauvegarder">
       </div>
       </form>
       </div>
