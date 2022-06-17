@@ -1,6 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+   <style>
+      @media print {
+      body * {
+      visibility: hidden;
+      }
+      .modal-content * {
+      visibility: visible;
+      overflow: visible;
+      }
+      .main-page * {
+      display: none;
+      }
+      .modal {
+      position: absolute;
+      left: 0;
+      top: 0;
+      margin: 0;
+      padding: 0;
+      min-height: 550px;
+      visibility: visible;
+      overflow: visible !important; /* Remove scrollbar for printing. */
+      }
+      .modal-dialog {
+      visibility: visible !important;
+      overflow: visible !important; /* Remove scrollbar for printing. */
+      }
+      #mailgroup {
+      display: none;
+      }
+      #adressegroup{
+      display : none;
+      }
+      #numerogroup {
+      display : none;
+      }
+      #boutonimprimer {
+      display : none;
+      }
+      #entete_show {
+      display : none;
+      }
+      #bas_show {
+      display : none;
+      }
+      }
+   </style>
+</head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,6 +62,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   
   <body>
+   <div id="nonPrintable">
     <div class="container">
         <div class="table-wrapper">
             <div class="table-title">
@@ -69,7 +118,6 @@
                         <td style="cursor:pointer;" href="#showEmployeeModal" data-toggle="modal" class="voiremploye" name="voiremploye" id={{$users['id']}}>
                             {{$users['Telephone']}}
                         </td>
-
                         <td>
                             <a type="button" href="#editEmployeeModal"  data-toggle="modal"><i class="material-icons edit" data-toggle="tooltip" name="editbutton" title="Modifier"  id={{$users['id']}}>&#xE254;</i></a>
                             <a type="button" href="#deleteEmployeeModal" data-toggle="modal"><i class="material-icons delete" data-toggle="tooltip" name="deletebutton" title="Supprimer" id={{$users['id']}}>&#xE872;</i></a>
@@ -122,6 +170,7 @@
                        <label>Numéro de téléphone</label>
                        <input type="text" class="form-control" name="numerovoir" id="numerovoir" readonly required>
                     </div>
+                  
                     <div id="qrcode-container" name="qrcode-container" style="text-align:center;">
                        <h4>QRcode</h4>
                        <img id="qrcode">
@@ -132,7 +181,6 @@
                     <button type="submit" name="envoyer_mail" id="envoyer_mail" value="envoyer_mail" class="btn btn-primary pull-right" style="margin-right:120px;" >Envoyer Mail</button>
                     <input type="hidden" name="qr64" id="qr64" class ="qr64">
                  </div>
-                 <az id="nonPrintable">
            </div>
            </form>
         </div>
@@ -183,40 +231,45 @@
         </div>
         </div>
 	<!-- Edit Modal HTML -->
-	<div id="editEmployeeModal" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form>
-					<div class="modal-header">						
-						<h4 class="modal-title">Edit Employee</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">					
-						<div class="form-group">
-							<label>Name</label>
-							<input type="text" class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label>Email</label>
-							<input type="email" class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label>Address</label>
-							<textarea class="form-control" required></textarea>
-						</div>
-						<div class="form-group">
-							<label>Phone</label>
-							<input type="text" class="form-control" required>
-						</div>					
-					</div>
-					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-info" value="Save">
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+   <div id="editEmployeeModal" class="modal fade">
+      <div class="modal-dialog">
+      <div class="modal-content">
+         <?php  ?>
+      <form method="POST" action="" enctype="multipart/form-data">
+      <div class="modal-header">						
+      <h4 class="modal-title">Modifier un employé</h4>
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+      <div class="form-group">
+          <input class="form-control" type="file" name="uploadfile" value="" />
+      </div>					
+      <div class="form-group">
+      <label>Nom</label>
+      <input id="identifiant" name="identifiant" type="hidden" >
+      <input type="text" class="form-control" name="nommodifier" id="nommodifier" required>
+      </div>
+      <div class="form-group">
+      <label>Email</label>
+      <input type="email" class="form-control" name="mailmodifier" id="mailmodifier" required>
+      </div>
+      <div class="form-group">
+      <label>Adresse</label>
+      <textarea class="form-control" name="adressemodifier" id="adressemodifier" required></textarea>
+      </div>
+      <div class="form-group">
+      <label>Numéro de téléphone</label>
+      <input type="text" class="form-control" name="numeromodifier" id="numeromodifier" required>
+      </div>					
+      </div>
+      <div class="modal-footer">
+      <input type="button" class="btn btn-default" data-dismiss="modal" value="Annuler">
+      <a type="button" href={{"edit/".$users['id']}} class="btn btn-info" name="Sauvegarder" value="Save">Save</a>
+      </div>
+      </form>
+      </div>
+      </div>
+      </div>
 	<!-- Delete Modal HTML -->
 	<div id="deleteEmployeeModal" class="modal fade">
 		<div class="modal-dialog">
@@ -245,25 +298,6 @@
 
 <script>
    $(document).ready(function() {
-
-      $.ajaxSetup({
-         headers : {
-            'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
-         }
-      });
-      fetchEmployee();
-
-      function fetchEmployee()
-      {
-         $.ajax({
-         		type: "GET",
-         		url: '/fetch-employee',
-         		dataType: "json",
-         		success: function(response) {
-                  console.log(response.employe[0].Nom);
-            }
-      });
-   }
    
 })
 </script>
@@ -277,22 +311,34 @@
          $(".edit").click(function(){
          	var id_row = $(this).attr("id");
             
-         	$.ajax({
-         		type: "GET",
-         		url: '/fetch-employe',
-         		dataType: "json",
-         		success: function(data)
-         		{
-                  console.log(data.employes)
-         			// data = JSON.parse(data);
-         			// document.getElementById("nommodifier").value = data.Nom;
-         			// document.getElementById("mailmodifier").value = data.Email;
-         			// document.getElementById("adressemodifier").value = data.Adresse;
-         			// document.getElementById("numeromodifier").value = data.Telephone;
-         			// document.getElementById("identifiant").value = data.ID;
-         		}
+            $.ajaxSetup({
+               headers : {
+                  'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+               }
+            });
+            
+         	fetchEmployee();
+
+            function fetchEmployee()
+            {
+               $.ajax({
+                     type: "GET",
+                     url: '/fetch-employee',
+                     dataType: "json",
+                     success: function(response) {
+                        id_row-=1;
+                        // console.log(response.employe[id_row].Nom);
+                        document.getElementById("nommodifier").value = response.employe[id_row].Nom;
+                        document.getElementById("mailmodifier").value = response.employe[id_row].Mail;
+                        document.getElementById("adressemodifier").value = response.employe[id_row].Adresse;
+                        document.getElementById("numeromodifier").value = response.employe[id_row].Telephone;
+                        document.getElementById("identifiant").value = response.employe[id_row].id;
+                  }
+            });
+         }
+
+
          	});
-         });
          
       </script>
 
@@ -317,28 +363,42 @@
       <script>
          $(".voiremploye").click(function(){
          	var id_row = $(this).attr("id");
-         	$.ajax({
-         		type: "POST",
-         		url: 'get_employe_by_id.php',
-         		data: { id_row : id_row },
-         		success: function(data)
-         		{
-         			data = JSON.parse(data);
-                  document.getElementById("photovoir").src = data.Image;
-         			document.getElementById("nomvoir").value = data.Nom;
-         			document.getElementById("mailvoir").value = data.Email;
-         			document.getElementById("adressevoir").value = data.Adresse;
-         			document.getElementById("numerovoir").value = data.Telephone;
-         			var Nom = data.Nom;
-         			var Mail = data.Email;
-         			var Adresse = data.Adresse;
-         			var Telephone = data.Telephone;
-         			var QrCode = creerQRC(Mail);
-         			var src_qrcode = document.getElementById('qrcode').src;
-         			document.getElementById("qr64").value = src_qrcode;
-         			createCookie("Mail",Mail,"1");
-         			createCookie("Nom",Nom,"1");			}
-         	});
+         	
+            $.ajaxSetup({
+               headers : {
+                  'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+               }
+            });
+            
+         	fetchEmployee();
+
+            function fetchEmployee()
+            {
+               $.ajax({
+                     type: "GET",
+                     url: '/fetch-employee',
+                     dataType: "json",
+                     success: function(response) {
+                        id_row-=1;
+                        // console.log(response.employe[id_row].Nom);
+                        document.getElementById("photovoir").src = "Test";
+                        document.getElementById("nomvoir").value = response.employe[id_row].Nom;
+                        document.getElementById("mailvoir").value = response.employe[id_row].Mail;
+                        document.getElementById("adressevoir").value = response.employe[id_row].Adresse;
+                        document.getElementById("numerovoir").value = response.employe[id_row].Telephone;
+                        var Nom = response.employe[id_row].Nom;
+                        var Mail = response.employe[id_row].Mail;
+                        var Adresse = response.employe[id_row].Adresse;
+                        var Telephone = response.employe[id_row].Telephone;
+                        var QrCode = creerQRC(Mail);
+                        var src_qrcode = document.getElementById('qrcode').src;
+                        document.getElementById("qr64").value = src_qrcode;
+                        createCookie("Mail",Mail,"1");
+                        createCookie("Nom",Nom,"1");
+                  }
+            });
+         }
+
          });
       </script> 
 

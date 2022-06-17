@@ -19,7 +19,19 @@ class EmployeController extends Controller
     {
         $employee= Employe::all();
         return response()->json([
-            'employe'=>$employee,
+            'employe'=>$employee, 
         ]);
     }
+
+    public function update(Request $req)
+    {
+        $donnee=Employe::find($req->id);
+        $donnee->Nom=$req->Nom;
+        $donnee->Mail=$req->Mail;
+        $donnee->Adresse=$req->Adresse;
+        $donnee->Telephone=$req->Telephone;
+        $donnee->save();
+        return redirect('employe');
+
+    } 
 }

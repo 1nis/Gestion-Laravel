@@ -42,3 +42,4 @@ Route::get('verification', function () {
 
 Route::get('employe',[EmployeController::class,'show']);
 Route::get('/fetch-employee',[EmployeController::class,'fetchemployee']);
+Route::get('edit/{id}',[EmployeController::class,'update']);
