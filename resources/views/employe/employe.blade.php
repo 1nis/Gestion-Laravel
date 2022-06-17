@@ -87,7 +87,7 @@
 						</th>
                         <th>Nom</th>
                         <th>Email</th>
-						<th>Adresse</th>
+						      <th>Adresse</th>
                         <th>Telephone</th>
                         <th>Actions</th>
                     </tr>
@@ -102,21 +102,20 @@
 								<label for="checkbox1"></label>
 							</span>
 						</td>
-
-                        <td style="cursor:pointer;" href="#showEmployeeModal" data-toggle="modal" class="voiremploye" name="voiremploye" id={{$users['id']}}>
-                            {{$users['Nom']}}
+                        <td style="cursor:pointer;" href="#showEmployeeModal" data-toggle="modal" class="voiremploye" name="voiremploye" id={{$users->id}}>
+                            {{$users->Nom}}
                         </td>
 
-                        <td style="cursor:pointer;" href="#showEmployeeModal" data-toggle="modal" class="voiremploye" name="voiremploye" id={{$users['id']}}>
-                            {{$users['Mail']}}
+                        <td style="cursor:pointer;" href="#showEmployeeModal" data-toggle="modal" class="voiremploye" name="voiremploye" id={{$users->id}}>
+                            {{$users->Mail}}
                         </td>
 
-						<td style="cursor:pointer;" href="#showEmployeeModal" data-toggle="modal" class="voiremploye" name="voiremploye" id={{$users['id']}}>
-                            {{$users['Adresse']}}
+						<td style="cursor:pointer;" href="#showEmployeeModal" data-toggle="modal" class="voiremploye" name="voiremploye" id={{$users->id}}>
+                            {{$users->Adresse}}
                         </td>
 
-                        <td style="cursor:pointer;" href="#showEmployeeModal" data-toggle="modal" class="voiremploye" name="voiremploye" id={{$users['id']}}>
-                            {{$users['Telephone']}}
+                        <td style="cursor:pointer;" href="#showEmployeeModal" data-toggle="modal" class="voiremploye" name="voiremploye" id={{$users->id}}>
+                            {{$users->Telephone}}
                         </td>
                         <td>
                             <a type="button" href="#editEmployeeModal"  data-toggle="modal"><i class="material-icons edit" data-toggle="tooltip" name="editbutton" title="Modifier"  id={{$users['id']}}>&#xE254;</i></a>
@@ -234,8 +233,8 @@
    <div id="editEmployeeModal" class="modal fade">
       <div class="modal-dialog">
       <div class="modal-content">
-         <?php  ?>
-      <form method="POST" action="" enctype="multipart/form-data">
+      <form method="GET" action="" id="envoyer_id" class="envoyer_id" enctype="multipart/form-data">
+         @csrf
       <div class="modal-header">						
       <h4 class="modal-title">Modifier un employé</h4>
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -264,7 +263,7 @@
       </div>
       <div class="modal-footer">
       <input type="button" class="btn btn-default" data-dismiss="modal" value="Annuler">
-      <a type="button" href={{"edit/".$users['id']}} class="btn btn-info" name="Sauvegarder" value="Save">Save</a>
+      <input type="submit" href="" class="btn btn-info" id="Sauvegarder" name="Sauvegarder" value="Save">
       </div>
       </form>
       </div>
@@ -329,6 +328,7 @@
                         id_row-=1;
                         // console.log(response.employe[id_row].Nom);
                         document.getElementById("nommodifier").value = response.employe[id_row].Nom;
+                        document.getElementById('envoyer_id').action = 'edit/'+response.employe[id_row].id;
                         document.getElementById("mailmodifier").value = response.employe[id_row].Mail;
                         document.getElementById("adressemodifier").value = response.employe[id_row].Adresse;
                         document.getElementById("numeromodifier").value = response.employe[id_row].Telephone;
