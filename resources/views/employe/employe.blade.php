@@ -106,6 +106,7 @@
 								<label for="selectAll"></label>
 							</span>
 						</th>
+                        <th>Photo</th>
                         <th>Nom</th>
                         <th>Email</th>
 						      <th>Adresse</th>
@@ -123,6 +124,9 @@
 								<label for="checkbox1"></label>
 							</span>
 						</td>
+                        <td style="cursor:pointer;" href="#showEmployeeModal" data-toggle="modal" class="voiremploye" name="voiremploye" id="',$users['ID'],'">
+                           <img src="img/{{$users->Image}}.jpg" height="35" width="37"/>
+                        </td>
                         <td style="cursor:pointer;" href="#showEmployeeModal" data-toggle="modal" class="voiremploye" name="voiremploye" id={{$users->id}}>
                             {{$users->Nom}}
                         </td>
@@ -397,7 +401,7 @@
                      success: function(response) {
                         id_row-=1;
                         // console.log(response.employe[id_row].Nom);
-                        document.getElementById("photovoir").src = "Test";
+                        document.getElementById("photovoir").src = 'img/'+response.employe[id_row].Image+'.jpg';
                         document.getElementById("nomvoir").value = response.employe[id_row].Nom;
                         document.getElementById("mailvoir").value = response.employe[id_row].Mail;
                         document.getElementById("adressevoir").value = response.employe[id_row].Adresse;
