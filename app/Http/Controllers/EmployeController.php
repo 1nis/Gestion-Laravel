@@ -10,7 +10,7 @@ class EmployeController extends Controller
     //
     function show()
     {
-        $data= Employe::all();
+        $data= Employe::paginate(5);
         return view('employe/employe',['user'=>$data]);
         return view('employe/get_employe_by_id',['user'=>$data]);
     }
@@ -37,6 +37,25 @@ class EmployeController extends Controller
         $donnee->Adresse=$req->adressemodifier;
         $donnee->Telephone=$req->numeromodifier;
         $donnee->save();
+        return redirect('employe');
+
+    } 
+
+    public function delete($id)
+    {
+        $donnee=Employe::find($id);
+        $donnee->delete();
+        return redirect('employe');
+    }
+
+    public function DataPlus(Request $req)
+    {
+        $utilisateur = new Employe;
+        $utilisateur->Nom=$req->nomajouter;
+        $utilisateur->Mail=$req->mailajouter;
+        $utilisateur->Adresse=$req->adresseajouter;
+        $utilisateur->Telephone=$req->numeroajouter;
+        $utilisateur->save();
         return redirect('employe');
 
     } 

@@ -1,7 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+   <header>
+      <nav class="navbar navbar-inverse">
+         <div class="container-fluid">
+           <div class="navbar-header">
+             <a class="navbar-brand" href="#">Gestion d'Employés</a>
+           </div>
+           <ul class="nav navbar-nav">
+             <li><a href="dashboard">Dashboard</a></li>
+             <li class="active"><a href="employe">Employe</a></li>
+             <li><a href="pointage">Pointage</a></li>
+           </ul>
+         </div>
+       </nav>
+   </header>
    <style>
       @media print {
       body * {
@@ -31,10 +44,19 @@
       #mailgroup {
       display: none;
       }
+      #photovoir {
+      display : none;
+      }
       #adressegroup{
       display : none;
       }
       #numerogroup {
+      display : none;
+      }
+      #photogroup {
+      display : none;
+      }
+      #nomaffichage {
       display : none;
       }
       #boutonimprimer {
@@ -52,7 +74,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bootstrap CRUD Data Table for Database with Modal Form</title>
+<title>Gestion d'Employés</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -62,7 +84,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   
   <body>
-   <div id="nonPrintable">
+   <az id="nonPrintable">
     <div class="container">
         <div class="table-wrapper">
             <div class="table-title">
@@ -125,19 +147,14 @@
                 </tbody>
             </table>
 			<div class="clearfix">
-                <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                <ul class="pagination">
-                    <li class="page-item disabled"><a href="#">Previous</a></li>
-                    <li class="page-item"><a href="#" class="page-link">1</a></li>
-                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                    <li class="page-item"><a href="#" class="page-link">4</a></li>
-                    <li class="page-item"><a href="#" class="page-link">5</a></li>
-                    <li class="page-item"><a href="#" class="page-link">Next</a></li>
-                </ul>
+            <div class="hint-text">
+               <span>
+                  {{$user->links()}}
+               </span>
             </div>
         </div>
-    </div>
+      </az>
+   </div id="nonPrintable">
     <!-- Show Modal HTML -->
     <div id="showEmployeeModal" class="modal fade">
         <div class="modal-dialog">
@@ -148,12 +165,12 @@
                     <button type="button" name="close" id="close" class="close" onClick="window.location.reload();" data-dismiss="modal" aria-hidden="true">&times;</button>
                  </div>
                  <div class="modal-body">
-                    <div class="form-group" id="nomgroup">
+                    <div class="form-group" id="photogroup">
                           <label>Photo Utilisateur : </label>
                           <img class="photovoir" id="photovoir" src="" height="55" width="70"/>
                     </div>
                     <div class="form-group" id="nomgroup">
-                       <label>Nom</label>
+                       <label id="nomaffichage">Nom</label>
                        <input type="text" class="form-control" name="nomvoir" id="nomvoir" readonly required>
                     </div>
                     <div class="form-group" id="mailgroup">
@@ -187,7 +204,7 @@
     <div id="addEmployeeModal" class="modal fade">
         <div class="modal-dialog">
         <div class="modal-content">
-        <form method="POST" action="" >
+        <form method="GET" action="addmember" >
         <div class="modal-header">						
         <h4 class="modal-title">Ajouter un employé</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -213,15 +230,6 @@
         <div class="modal-footer">
         <input type="reset" class="btn btn-default" data-dismiss="modal" value="Annuler">
         <input type="Submit" class="btn btn-success" name="Ajouter" value="Ajouter">
-        <?php
-           $default = './img/default.jpg';
-           // Ici si l'utilisateur clique sur le bouton ajouter alors les valeurs sont directement ajouter dans la bdd dans la table user //
-               if (isset($_POST['Ajouter'])) {
-                   $ajouterpersonne = $connexion->query("INSERT INTO user VALUES (null, '{$_POST['nomajouter']}', '{$_POST['mailajouter']}', '{$_POST['adresseajouter']}', '{$_POST['numeroajouter']}', '$default')");
-                   
-                 echo "<meta http-equiv='refresh' content='0'>";
-               }
-           ?>
         </div>
         </form>
         </div>
@@ -266,12 +274,12 @@
       </form>
       </div>
       </div>
-      </div>
+   </div>
 	<!-- Delete Modal HTML -->
 	<div id="deleteEmployeeModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form>
+				<form method="GET" action="" id="supprimer_id" class="supprimer_id" enctype="multipart/form-data">
 					<div class="modal-header">						
 						<h4 class="modal-title">Delete Employee</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -324,7 +332,7 @@
                      dataType: "json",
                      success: function(response) {
                         id_row-=1;
-                        // console.log(response.employe[id_row].Nom);
+                        console.log(response.employe);
                         document.getElementById("nommodifier").value = response.employe[id_row].Nom;
                         document.getElementById('envoyer_id').action = 'edit/'+response.employe[id_row].id;
                         document.getElementById("mailmodifier").value = response.employe[id_row].Mail;
@@ -344,17 +352,27 @@
          $(".delete").click(function(){
          	var id_row = $(this).attr("id");
          
-         	$.ajax({
-         		type: "POST",
-         		url: 'get_employe_by_id.php',
-         		data: { id_row : id_row },
-         		success: function(data)
-         		{
-         			data = JSON.parse(data);
-         			document.getElementById("identifiant2").value = data.ID;
-         			document.getElementById("nomsupprimer").value = data.Nom;
-         		}
-         	});
+         	$.ajaxSetup({
+               headers : {
+                  'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+               }
+            });
+            
+         	fetchEmployee();
+
+            function fetchEmployee()
+            {
+               $.ajax({
+                     type: "GET",
+                     url: '/fetch-employee',
+                     dataType: "json",
+                     success: function(response) {
+                        id_row-=1;
+                        // console.log(response.employe[id_row].Nom);
+                        document.getElementById('supprimer_id').action = 'delete/'+response.employe[id_row].id;
+                  }
+            });
+         }
          });
       </script> 
 
