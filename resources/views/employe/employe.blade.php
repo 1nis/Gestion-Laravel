@@ -125,7 +125,7 @@
 							</span>
 						</td>
                         <td style="cursor:pointer;" href="#showEmployeeModal" data-toggle="modal" class="voiremploye" name="voiremploye" id="',$users['ID'],'">
-                           <img src="img/{{$users->Image}}.jpg" height="35" width="37"/>
+                           <img src="{{ asset('storage/img/'.$users->Image) }}" height="35" width="37"/>
                         </td>
                         <td style="cursor:pointer;" href="#showEmployeeModal" data-toggle="modal" class="voiremploye" name="voiremploye" id={{$users->id}}>
                             {{$users->Nom}}
@@ -243,7 +243,7 @@
    <div id="editEmployeeModal" class="modal fade">
       <div class="modal-dialog">
       <div class="modal-content">
-      <form method="GET" action="" id="envoyer_id" class="envoyer_id" enctype="multipart/form-data">
+      <form method="POST" action="" id="envoyer_id" class="envoyer_id" enctype="multipart/form-data">
          @csrf
       <div class="modal-header">						
       <h4 class="modal-title">Modifier un employé</h4>
@@ -251,7 +251,7 @@
       </div>
       <div class="modal-body">
       <div class="form-group">
-          <input class="form-control" type="file" name="uploadfile" value="" />
+          <input class="form-control" type="file" name="file" id="file" />
       </div>					
       <div class="form-group">
       <label>Nom</label>
@@ -401,7 +401,7 @@
                      success: function(response) {
                         id_row-=1;
                         // console.log(response.employe[id_row].Nom);
-                        document.getElementById("photovoir").src = 'img/'+response.employe[id_row].Image+'.jpg';
+                        document.getElementById("photovoir").src = 'storage/img/'+response.employe[id_row].Image;
                         document.getElementById("nomvoir").value = response.employe[id_row].Nom;
                         document.getElementById("mailvoir").value = response.employe[id_row].Mail;
                         document.getElementById("adressevoir").value = response.employe[id_row].Adresse;

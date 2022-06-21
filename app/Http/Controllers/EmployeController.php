@@ -12,7 +12,6 @@ class EmployeController extends Controller
     {
         $data= Employe::paginate(5);
         return view('employe/employe',['user'=>$data]);
-        return view('employe/get_employe_by_id',['user'=>$data]);
     }
 
     public function fetchemployee()
@@ -31,6 +30,14 @@ class EmployeController extends Controller
 
     public function update(Request $req)
     {
+        if ($req->hasFile('file')) {
+            $file = $req->file('file');
+            $fileName = $file->getClientOriginalName();
+            $file->storeAs('img', $fileName);
+            $datauser=Employe::find($req->id);
+            $datauser->Image= $fileName;
+
+        }        
         $donnee=Employe::find($req->id);
         $donnee->Nom=$req->nommodifier;
         $donnee->Mail=$req->mailmodifier;

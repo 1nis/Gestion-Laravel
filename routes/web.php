@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeController;
+use App\Http\Controllers\PointageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +43,9 @@ Route::get('verification', function () {
 
 Route::get('employe',[EmployeController::class,'show']);
 Route::get('/fetch-employee',[EmployeController::class,'fetchemployee']);
-Route::get('edit/{id}',[EmployeController::class,'update']);
+Route::post('edit/{id}',[EmployeController::class,'update']);
 Route::get('delete/{id}',[EmployeController::class,'delete']);
 Route::get('addmember',[EmployeController::class,'DataPlus']);
+
+Route::get('pointage',[PointageController::class,'show']);
+Route::get('presence',[PointageController::class,'DataPlus']);
