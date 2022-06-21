@@ -123,27 +123,27 @@
                                         <label for="checkbox1"></label>
                                     </span>
                                 </td>
-                                <td style="cursor:pointer;" href="#showEmployeeModal" data-toggle="modal" class="voiremploye" name="voiremploye" id="',$users['ID'],'">
+                                <td style="cursor:pointer;" href="#showEmployeeModal" data-toggle="modal" class="voiremploye" name="voiremploye" id="',$users['usrid'],'">
                                 
                                 </td>
-                                <td style="cursor:pointer;" href="#showEmployeeModal" data-toggle="modal" class="voiremploye" name="voiremploye" id={{$users->id}}>
+                                <td style="cursor:pointer;" href="#showEmployeeModal" data-toggle="modal" class="voiremploye" name="voiremploye" id={{$users->usrid}}>
                                     {{$users->ID}}
                                 </td>
         
-                                <td style="cursor:pointer;" href="#showEmployeeModal" data-toggle="modal" class="voiremploye" name="voiremploye" id={{$users->id}}>
+                                <td style="cursor:pointer;" href="#showEmployeeModal" data-toggle="modal" class="voiremploye" name="voiremploye" id={{$users->usrid}}>
                                     {{$users->Nom}}
                                 </td>
         
-                                <td style="cursor:pointer;" href="#showEmployeeModal" data-toggle="modal" class="voiremploye" name="voiremploye" id={{$users->id}}>
+                                <td style="cursor:pointer;" href="#showEmployeeModal" data-toggle="modal" class="voiremploye" name="voiremploye" id={{$users->usrid}}>
                                     {{$users->Mail}}
                                 </td>
         
-                                <td style="cursor:pointer;" href="#showEmployeeModal" data-toggle="modal" class="voiremploye" name="voiremploye" id={{$users->id}}>
+                                <td style="cursor:pointer;" href="#showEmployeeModal" data-toggle="modal" class="voiremploye" name="voiremploye" id={{$users->usrid}}>
                                     {{$users->Date}}
                                 </td>
                                 <td>
-                                    <a type="button" href="#editEmployeeModal"  data-toggle="modal"><i class="material-icons edit" data-toggle="tooltip" name="editbutton" title="Modifier"  id={{$users['id']}}>&#xE254;</i></a>
-                                    <a type="button" href="#deleteEmployeeModal" data-toggle="modal"><i class="material-icons delete" data-toggle="tooltip" name="deletebutton" title="Supprimer" id={{$users['id']}}>&#xE872;</i></a>
+                                    <a type="button" href="#editEmployeeModal"  data-toggle="modal"><i class="material-icons edit" data-toggle="tooltip" name="editbutton" title="Modifier"  id={{$users['usrid']}}>&#xE254;</i></a>
+                                    <a type="button" href="#deleteEmployeeModal" data-toggle="modal"><i class="material-icons delete" data-toggle="tooltip" name="deletebutton" title="Supprimer" id={{$users['usrid']}}>&#xE872;</i></a>
                                 </td>
                             </tr>
                             @endforeach
@@ -151,54 +151,57 @@
                      </table>
                      <div class="clearfix">
                         <div class="hint-text">
-                           Total de <b>
-                           </b> éléments
+                           <span>
+                              {{$user->links()}}
+                           </span>
                         </div>
-                     </div>
+                    </div>
                   </div>
                </az>
-               <!-- Show Modal HTML -->
-               <div id="showEmployeeModal" class="modal fade">
-                  <div class="modal-dialog">
-                     <div class="modal-content">
-                        <form method="POST" action="" >
-                           <div class="modal-header" id="entete_show">
-                              <h4 class="modal-title">Information de l'employé</h4>
-                              <button type="button" name="close" id="close" class="close" onClick="window.location.reload();" data-dismiss="modal" aria-hidden="true">&times;</button>
-                           </div>
-                           <div class="modal-body">
-                              <div class="form-group" id="nomgroup">
-                                       <label>Photo Utilisateur : </label>
-                                       <img class="photovoir" id="photovoir" src="" height="55" width="70"/>
-                              </div>
-                              <div class="form-group" id="nomgroup">
-                                 <label>Nom</label>
-                                 <input type="text" class="form-control" name="nomvoir" id="nomvoir" readonly required>
-                              </div>
-                              <div class="form-group" id="mailgroup">
-                                 <label>Email</label>
-                                 <input type="email" class="form-control" name="mailvoir" id="mailvoir" readonly required>
-                              </div>
-                              <div class="form-group" id="adressegroup">
-                                 <label>Adresse</label>
-                                 <textarea class="form-control" name="adressevoir" id="adressevoir" readonly required></textarea>
-                              </div>
-                              <div class="form-group" id="numerogroup">
-                                 <label>Numéro de téléphone</label>
-                                 <input type="text" class="form-control" name="numerovoir" id="numerovoir" readonly required>
-                              </div>
-                              <div id="qrcode-container" name="qrcode-container" style="text-align:center;">
-                                 <h4>QRcode</h4>
-                                 <img id="qrcode">
-                              </div>
-                           </div>
-                           <div class="modal-footer" id="bas_show">
-                              <input type="hidden" name="qr64" id="qr64" class ="qr64">
-                           </div>
-                     </div>
-                     </form>
-                  </div>
-               </div>
+            <!-- Show Modal HTML -->
+            <div id="showEmployeeModal" class="modal fade">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="GET" action="" >
+                        <div class="modal-header" id="entete_show">
+                            <h4 class="modal-title">Information de l'employé</h4>
+                            <button type="button" name="close" id="close" class="close" onClick="window.location.reload();" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group" id="photogroup">
+                                <label>Photo Utilisateur : </label>
+                                <img class="photovoir" id="photovoir" src="" height="55" width="70"/>
+                            </div>
+                            <div class="form-group" id="nomgroup">
+                            <label id="nomaffichage">Nom</label>
+                            <input type="text" class="form-control" name="nomvoir" id="nomvoir" readonly required>
+                            </div>
+                            <div class="form-group" id="mailgroup">
+                            <label>Email</label>
+                            <input type="email" class="form-control" name="mailvoir" id="mailvoir" readonly required>
+                            </div>
+                            <div class="form-group" id="adressegroup">
+                            <label>Adresse</label>
+                            <textarea class="form-control" name="adressevoir" id="adressevoir" readonly required></textarea>
+                            </div>
+                            <div class="form-group" id="numerogroup">
+                            <label>Numéro de téléphone</label>
+                            <input type="text" class="form-control" name="numerovoir" id="numerovoir" readonly required>
+                            </div>
+                        
+                            <div id="qrcode-container" name="qrcode-container" style="text-align:center;">
+                            <h4>QRcode</h4>
+                            <img id="qrcode">
+                            </div>
+                        </div>
+                        <div class="modal-footer" id="bas_show">
+                            <a href="javascript:window.print()" id ="boutonimprimer" class="btn btn-primary pull-right">Imprimer</a>
+                            <button type="submit" name="envoyer_mail" id="envoyer_mail" value="envoyer_mail" class="btn btn-primary pull-right" style="margin-right:120px;" >Envoyer Mail</button>
+                            <input type="hidden" name="qr64" id="qr64" class ="qr64">
+                        </div>
+                </div>
+                </form>
+                </div>
             </div>
             <!-- Add Modal HTML -->
             <div id="addEmployeeModal" class="modal fade">
@@ -225,102 +228,250 @@
             </div>
             </div>
             <!-- Edit Modal HTML -->
-            <div id="editEmployeeModal" class="modal fade">
-            <div class="modal-dialog">
-            <div class="modal-content">
-            <form method="POST" action ="" >
-            <div class="modal-header">						
-            <h4 class="modal-title">Modifier le pointage</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div class="modal-body">					
-            <div class="form-group">
-            <label>Nom</label>
-            <input id="identifiant" name="identifiant" type="hidden" >
-            <input type="text" class="form-control" name="nommodifier" id="nommodifier" required>
-            </div>
-            <div class="form-group">
-            <label>Email</label>
-            <input type="email" class="form-control" name="mailmodifier" id="mailmodifier" required>
-            </div>
-            <div class="form-group">
-            <label>Adresse</label>
-            <textarea class="form-control" name="adressemodifier" id="adressemodifier" required></textarea>
-            </div>
-            <div class="form-group">
-            <label>Numéro de téléphone</label>
-            <input type="text" class="form-control" name="numeromodifier" id="numeromodifier" required>
-            </div>					
-            </div>
-            <div class="modal-footer">
-            <input type="button" class="btn btn-default" data-dismiss="modal" value="Annuler">
-            <input type="submit" class="btn btn-info" name="Sauvegarder" value="Save">
-            <?php
-               if (isset($_POST['Sauvegarder'])) {
-               	$modifierpersonne = $connexion->query("UPDATE user Set Nom ='{$_POST['nommodifier']}', Email = '{$_POST['mailmodifier']}', Adresse = '{$_POST['adressemodifier']}', Telephone ='{$_POST['numeromodifier']}' WHERE ID = '{$_POST['identifiant']}'");
-               	echo "<meta http-equiv='refresh' content='0'>";
-               }
-               ?>
-            </div>
-            </form>
-            </div>
-            </div>
-            </div>
+                <div id="editEmployeeModal" class="modal fade">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                    <form method="POST" action="" id="envoyer_id" class="envoyer_id" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-header">						
+                    <h4 class="modal-title">Modifier un employé</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                    <div class="form-group">
+                        <input class="form-control" type="file" name="file" id="file" />
+                    </div>					
+                    <div class="form-group">
+                    <label>Nom</label>
+                    <input id="identifiant" name="identifiant" type="hidden" >
+                    <input type="text" class="form-control" name="nommodifier" id="nommodifier" required>
+                    </div>
+                    <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" name="mailmodifier" id="mailmodifier" required>
+                    </div>
+                    <div class="form-group">
+                    <label>Adresse</label>
+                    <textarea class="form-control" name="adressemodifier" id="adressemodifier" required></textarea>
+                    </div>
+                    <div class="form-group">
+                    <label>Numéro de téléphone</label>
+                    <input type="text" class="form-control" name="numeromodifier" id="numeromodifier" required>
+                    </div>					
+                    </div>
+                    <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Annuler">
+                    <input type="submit" href="" class="btn btn-info" id="Sauvegarder" name="Sauvegarder" value="Sauvegarder">
+                    </div>
+                    </form>
+                    </div>
+                    </div>
+                </div>
             <!-- Delete Modal HTML -->
-            <div id="deleteEmployeeModal" class="modal fade">
-            <div class="modal-dialog">
-            <div class="modal-content">
-            <form method="POST" action="" >
-            <div class="modal-header">						
-            <h4 class="modal-title">Supprimer le pointage ?</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div class="modal-body">
-            <input id="identifiant2" name="identifiant2" type="hidden" >					
-            <p>Êtes-vous sur de vouloir supprimer le pointage ?</p>
-            <input type="hidden" class="form-control" name="nomsupprimer" id="nomsupprimer" required>
-            <p class="text-warning"><small>Cette action ne pourra pas être anulée.</small></p>
-            </div>
-            <div class="modal-footer">
-            <input type="button" class="btn btn-default" data-dismiss="modal" value="Annuler">
-            <input type="submit" class="btn btn-danger" name="validation_supprimer" value="Supprimer le Pointage">
-            <?php
-               if (isset($_POST['validation_supprimer'])) {
-                  $identifiant2 = $_POST['identifiant2'];
-               	$supprimerpersonne = $connexion->query("DELETE FROM `pointage` WHERE ID = '$identifiant2'");
-               	echo "<meta http-equiv='refresh' content='0'>";
-               }
-               //$i =0;
-               //for (i=0;i<$recuppersonne;i++) {
-               //	if (isset($_POST[$i]))
-               //}
-               
-               ?>
-            </div>
-            </form>
-            </div>
-            </div>
-            </div>
-               <!-- Export Modal HTML
-            <div id="exportEmployeeModal" class="modal fade">
-               <div class="modal-dialog">
-                  <div class="modal-content">
-                     <form method="POST" action ="" >
-                        <div class="modal-header">						
-                           <h4 class="modal-title">Exporter les employés</h4>
-                           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">					
-                           <a href="export_pointage_tableur.php" class="btn btn-default" >Format Tableur</a>
-                           <a href="export_pointage_tableur.php" class="btn btn-info" >Format PDF</a>			
-                        </div>
-                        <div class="modal-footer">
+	<div id="deleteEmployeeModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form method="GET" action="" id="supprimer_id" class="supprimer_id" enctype="multipart/form-data">
+					<div class="modal-header">						
+						<h4 class="modal-title">Delete Employee</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">					
+						<p>Are you sure you want to delete these Records?</p>
+						<p class="text-warning"><small>This action cannot be undone.</small></p>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-danger" value="Delete">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
 
-                        </div>
-                     </form>
-                  </div>
-               </div>
-            </div> -->
-            </az>
-         </body>
-      </html>
+     <!-- partial -->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+     <script>
+        $(".edit").click(function(){
+            var id_row = $(this).attr("id");
+
+           $.ajaxSetup({
+              headers : {
+                 'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+              }
+           });
+           
+            fetchEmployee();
+
+           function fetchEmployee()
+           {
+              $.ajax({
+                    type: "GET",
+                    url: '/fetch-employee',
+                    dataType: "json",
+                    success: function(response) {
+                        id_row-=1;
+                        // console.log(id_row);
+                       document.getElementById("nommodifier").value = response.employe[id_row].Nom;
+                       document.getElementById('envoyer_id').action = 'edit/'+response.employe[id_row].id;
+                       document.getElementById("mailmodifier").value = response.employe[id_row].Mail;
+                       document.getElementById("adressemodifier").value = response.employe[id_row].Adresse;
+                       document.getElementById("numeromodifier").value = response.employe[id_row].Telephone;
+                       document.getElementById("identifiant").value = response.employe[id_row].id;
+                 }
+           });
+        }
+
+
+            });
+        
+     </script>
+
+     <script>
+        $(".delete").click(function(){
+            var id_row = $(this).attr("id");
+        
+            $.ajaxSetup({
+              headers : {
+                 'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+              }
+           });
+           
+            fetchEmployee();
+
+           function fetchEmployee()
+           {
+              $.ajax({
+                    type: "GET",
+                    url: '/fetch-employee',
+                    dataType: "json",
+                    success: function(response) {
+                       id_row-=1;
+                       // console.log(response.employe[id_row].Nom);
+                       document.getElementById('supprimer_id').action = 'delete/'+response.employe[id_row].id;
+                 }
+           });
+        }
+        });
+     </script> 
+
+     <script>
+        $(".voiremploye").click(function(){
+            var id_row = $(this).attr("id");
+
+           $.ajaxSetup({
+              headers : {
+                 'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+              }
+           });
+           
+            fetchEmployee();
+
+           function fetchEmployee()
+           {
+              $.ajax({
+                    type: "GET",
+                    url: '/fetch-employee',
+                    dataType: "json",
+                    success: function(response) {
+                       id_row-=1;
+                    //    console.log(response.employe[id_row]);
+                       document.getElementById("photovoir").src = 'storage/img/'+response.employe[id_row].Image;
+                       document.getElementById("nomvoir").value = response.employe[id_row].Nom;
+                       document.getElementById("mailvoir").value = response.employe[id_row].Mail;
+                       document.getElementById("adressevoir").value = response.employe[id_row].Adresse;
+                       document.getElementById("numerovoir").value = response.employe[id_row].Telephone;
+                       var Nom = response.employe[id_row].Nom;
+                       var Mail = response.employe[id_row].Mail;
+                       var Adresse = response.employe[id_row].Adresse;
+                       var Telephone = response.employe[id_row].Telephone;
+                       var QrCode = creerQRC(Mail);
+                       var src_qrcode = document.getElementById('qrcode').src;
+                       document.getElementById("qr64").value = src_qrcode;
+                       createCookie("Mail",Mail,"1");
+                       createCookie("Nom",Nom,"1");
+                 }
+           });
+        }
+
+        });
+     </script> 
+
+     <script>
+        function createCookie(cname, cvalue, exdays) {
+         const d = new Date();
+         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+         let expires = "expires="+d.toUTCString();
+         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+     </script>
+
+     <script>
+        function creerQRC(a) {
+        var url = a;
+        var qrcode = 'https://chart.googleapis.com/chart?cht=qr&chl=' + encodeURIComponent(url) + '&chs=200x200&choe=UTF-8&chld=L|0';
+        document.getElementById("qrcode").src = qrcode;
+        }
+     </script>
+
+     <!-- <script type="text/javascript" >
+        function generateQRCode(a){
+        $("#qrcode").html("");
+        new QRCode(document.getElementById("qrcode"), a);}
+        </script> -->
+
+     <script>
+        function functionPrint() {
+          document.getElementById("nonPrintable").className += "noPrint";
+          window.print();
+        }
+     </script>
+
+     <!-- Script qui permet de refresh la page sans que les données ne soient envoyées 2 fois -->
+     <script>
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+     </script>
+
+     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+     <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+     <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+     <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+     
+     <script>
+        $("#export_button").click(function(){
+        $(document).ready(function() {
+        $('#table_info').DataTable( {
+            dom: 'Bfrtip',
+            paging: false,
+            ordering: false,
+            info: false,
+            searching : false,
+            buttons: [
+                {extend: 'pdf',
+                        exportOptions: {
+                         columns: [ 2, 3, 4, 5 ],
+                        },
+                        text:'PDF'
+                 },
+              {extend: 'excelHtml5',
+                        exportOptions: {
+                         columns: [ 0, 1, 2, 3, 4 ],
+                        },
+                        text:'Excel'
+                 }
+            ]
+        }  );
+        } );
+        });
+        
+        
+     </script>
+

@@ -16,7 +16,7 @@ class EmployeController extends Controller
 
     public function fetchemployee()
     {
-        $employee= Employe::all();
+        $employee= Employe::all();      
         return response()->json([
             'employe'=>$employee, 
         ]);
