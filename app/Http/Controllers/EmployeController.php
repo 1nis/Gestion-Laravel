@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Employe;
+use App\Mail\SendMail;
 
 class EmployeController extends Controller
 {
@@ -66,4 +67,21 @@ class EmployeController extends Controller
         return redirect('employe');
 
     } 
+
+    public function mailsend($id)
+    {
+        $data=Employe::find($id);
+        response()->json([
+            'employe'=>$data, 
+        ]);
+        return view('emails.sendmail');
+    //     $details = [
+    //         'title' => 'Title: Mail from Real Programmer',
+    //         'body' => 'Body : This is for real testing email using smtp'
+    //     ];
+
+    //     \Mail::to('kherrafanis13@gmail.com')->send(new SendMail($details));
+    //     return redirect('employe');
+    }
+
 }

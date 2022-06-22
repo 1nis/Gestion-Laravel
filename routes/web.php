@@ -49,3 +49,4 @@ Route::get('addmember',[EmployeController::class,'DataPlus']);
 
 Route::get('pointage',[PointageController::class,'show']);
 Route::get('presence',[PointageController::class,'DataPlus']);
+Route::get('/send-mail/{id}',[EmployeController::class,'mailsend']);

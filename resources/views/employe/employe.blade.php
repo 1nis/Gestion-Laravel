@@ -163,7 +163,7 @@
     <div id="showEmployeeModal" class="modal fade">
         <div class="modal-dialog">
            <div class="modal-content">
-              <form method="GET" action="" >
+              <form method="GET" action="" id="form_mail" class="form_mail">
                  <div class="modal-header" id="entete_show">
                     <h4 class="modal-title">Information de l'employé</h4>
                     <button type="button" name="close" id="close" class="close" onClick="window.location.reload();" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -406,6 +406,7 @@
                         document.getElementById("mailvoir").value = response.employe[id_row].Mail;
                         document.getElementById("adressevoir").value = response.employe[id_row].Adresse;
                         document.getElementById("numerovoir").value = response.employe[id_row].Telephone;
+                        document.getElementById("form_mail").action = 'send-mail/'+response.employe[id_row].id;
                         var Nom = response.employe[id_row].Nom;
                         var Mail = response.employe[id_row].Mail;
                         var Adresse = response.employe[id_row].Adresse;

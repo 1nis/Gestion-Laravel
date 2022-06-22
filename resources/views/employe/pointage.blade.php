@@ -195,8 +195,7 @@
                             </div>
                         </div>
                         <div class="modal-footer" id="bas_show">
-                            <a href="javascript:window.print()" id ="boutonimprimer" class="btn btn-primary pull-right">Imprimer</a>
-                            <button type="submit" name="envoyer_mail" id="envoyer_mail" value="envoyer_mail" class="btn btn-primary pull-right" style="margin-right:120px;" >Envoyer Mail</button>
+                            <a href="javascript:window.print()" id ="boutonimprimer" class="btn btn-primary pull-right" style="margin-right:120px" >Imprimer</a>
                             <input type="hidden" name="qr64" id="qr64" class ="qr64">
                         </div>
                 </div>
