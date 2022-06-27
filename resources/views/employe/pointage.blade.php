@@ -8,7 +8,7 @@
              <a class="navbar-brand" href="#">Gestion d'Employés</a>
            </div>
            <ul class="nav navbar-nav">
-             <li><a href="dashboard">Dashboard</a></li>
+             {{-- <li><a href="dashboard">Dashboard</a></li> --}}
              <li><a href="employe">Employe</a></li>
              <li class="active"><a href="pointage">Pointage</a></li>
            </ul>

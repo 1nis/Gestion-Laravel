@@ -8,7 +8,7 @@
              <a class="navbar-brand" href="#">Gestion d'Employés</a>
            </div>
            <ul class="nav navbar-nav">
-             <li><a href="dashboard">Dashboard</a></li>
+             {{-- <li><a href="dashboard">Dashboard</a></li> --}}
              <li class="active"><a href="employe">Employe</a></li>
              <li><a href="pointage">Pointage</a></li>
            </ul>
@@ -285,16 +285,16 @@
 			<div class="modal-content">
 				<form method="GET" action="" id="supprimer_id" class="supprimer_id" enctype="multipart/form-data">
 					<div class="modal-header">						
-						<h4 class="modal-title">Delete Employee</h4>
+						<h4 class="modal-title">Supprimer l'Employé</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
-						<p>Are you sure you want to delete these Records?</p>
-						<p class="text-warning"><small>This action cannot be undone.</small></p>
+						<p>Êtes-vous sur de vouloir supprimer l'employé ?</p>
+						<p class="text-warning"><small>Cette action ne pourra pas être annulé.</small></p>
 					</div>
 					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-danger" value="Delete">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Annuler">
+						<input type="submit" class="btn btn-danger" value="Supprimer">
 					</div>
 				</form>
 			</div>
